@@ -16,12 +16,12 @@ public class addFile {
             i++;
         }
 
-        this.createFiles(sliced);
+        this.addFiles(sliced);
     }
 
-    public void createFiles(String[] sliced){
+    public void addFiles(String[] sliced){
         for(int i = 0; i < sliced.length; i++) {
-
+            continue;
         }
     }
 }

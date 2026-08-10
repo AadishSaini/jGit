@@ -24,5 +24,19 @@ public class general {
         }
     }
 
-    public void createInitFiles(String path) {}
+    public void createFile(String path){
+        Path pathToCreateTo = Paths.get(path);
+
+        try {
+            // Create the empty file
+            Files.createFile(pathToCreateTo);
+            System.out.println("File created successfully!");
+        } catch (IOException e) {
+            System.out.println("An error occurred or file already exists: " + e.getMessage());
+        }
+    }
+    public void createInitFiles(String path) {
+        createFile(".jGit/.jGitingore");
+        createFile(".jGit/.branchInfo");
+    }
 }

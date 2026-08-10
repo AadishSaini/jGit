@@ -17,7 +17,8 @@ public class handleArguments {
                 break;
             case "add":
                 addFile addFile = new addFile(args);
-
+            case "ignore":
+                ignoreArgument ignoreArgument = new ignoreArgument(args);
         }
     }
 }

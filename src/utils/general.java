@@ -1,6 +1,8 @@
 package utils;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,7 +38,17 @@ public class general {
         }
     }
     public void createInitFiles(String path) {
-        createFile(".jGit/.jGitingore");
+        createFile(".jGit/.jGitignore");
+        createFile(".jGit/.addedFiles");
         createFile(".jGit/.branchInfo");
+    }
+
+    public void writeInfile(String path, String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
+            writer.write(content);
+            writer.newLine();
+        } catch (IOException e) {
+            System.err.println("An error occurred: " + e.getMessage());
+        }
     }
 }

@@ -1,0 +1,13 @@
+.jGit/.jGitignore
+.jGit/.jGitignore
+.jGit/.jGitignore
+.jGit/.jGitignore
+.jGit/.jGitignore
+.jGit/.jGitignore
+.jGit/.jGitignore
+.jGit/.jGitignore
+.jGit/.jGitignore
+.jGit/.jGitignore
+.jGit/.jGitignore
+.jGit/.jGitignore
+.jGit/.jGitignore

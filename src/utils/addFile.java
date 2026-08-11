@@ -3,25 +3,27 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class addFile {
     public addFile(String[] completeInstructionSet){
         String[] sliced = Arrays.copyOfRange(completeInstructionSet, 1, completeInstructionSet.length);
 
-        ArrayList<String> slice = new ArrayList<>(Arrays.asList(sliced));
+        ArrayList<String> slicedFinal = new ArrayList<>();
 
-        int i = 0;
-        while(sliced[i] != "&&") {
-            slice.add(sliced[i]);
-            i++;
+        for (String s : sliced) {
+            if (Objects.equals(s, "&&")) {
+                break;
+            }
+            slicedFinal.add(s);
         }
-
-        this.addFiles(sliced);
+        this.addFiles(slicedFinal);
     }
 
-    public void addFiles(String[] sliced){
-        for(int i = 0; i < sliced.length; i++) {
-            continue;
+    public void addFiles(ArrayList<String> sliced){
+        general gen=new general();
+        for (String s : sliced) {
+            gen.writeInfile(".jGit/.addedFiles", s);
         }
     }
 }

@@ -7,31 +7,28 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class ignoreArgument {
     public ignoreArgument(String[] args) {
         String[] sliced = Arrays.copyOfRange(args, 1, args.length);
 
-        ArrayList<String> slice = new ArrayList<>(Arrays.asList(sliced));
+        ArrayList<String> slicedFinal = new ArrayList<>();
 
-        int i = 0;
-        while(sliced[i] != "&&") {
-            slice.add(sliced[i]);
-            i++;
+        for (String s: sliced) {
+            if (Objects.equals(s, "&&")){
+                break;
+            }
+            slicedFinal.add(s);
         }
 
-        this.ignoreFiles(sliced);
+        this.ignoreFiles(slicedFinal);
     }
 
-    public void ignoreFiles(String[] files) {
-        Path path = Paths.get("/.jGit/.branchInfo");
-        String textToAppend = String.join("\n", files);
-
-        try {
-            Files.write(path, textToAppend.getBytes(), StandardOpenOption.APPEND);
-            System.out.println("Successfully wrote to the file!");
-        } catch (IOException e) {
-            System.out.println("An error occurred: " + e.getMessage());
+    public void ignoreFiles(ArrayList<String> files) {
+        general gen = new general();
+        for (String s: files) {
+            gen.writeInfile(".jGit/.jGitignore", s);
         }
     }
 }

@@ -1,14 +1,13 @@
 package utils;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class general {
+public class General {
 
     public void createDir(String path) {
         Path testFolderPath = Paths.get(path);

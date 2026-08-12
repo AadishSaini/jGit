@@ -1,8 +1,8 @@
 package utils;
 
-public class handleArguments {
+public class HandleArguments {
     public void switchCase(String caseName, String[] args) {
-        general gen = new general();
+        General gen = new General();
 
         switch (caseName) {
             case "--h":
@@ -16,9 +16,11 @@ public class handleArguments {
                 gen.createInitFiles(".jGit");
                 break;
             case "add":
-                addFile addFile = new addFile(args);
+                AddFile addFile = new AddFile(args);
+                break;
             case "ignore":
-                ignoreArgument ignoreArgument = new ignoreArgument(args);
+                IgnoreArgument ignoreArgument = new IgnoreArgument(args);
+                break;
         }
     }
 }

@@ -1,4 +1,4 @@
-import utils.handleArguments;
+import utils.HandleArguments;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,7 +9,7 @@ public class Main {
         }
 
         String command = args[0];
-        handleArguments arguments = new handleArguments();
+        HandleArguments arguments = new HandleArguments();
 
         arguments.switchCase(command, args);
     }

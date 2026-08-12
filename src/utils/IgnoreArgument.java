@@ -1,16 +1,11 @@
 package utils;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class ignoreArgument {
-    public ignoreArgument(String[] args) {
+public class IgnoreArgument {
+    public IgnoreArgument(String[] args) {
         String[] sliced = Arrays.copyOfRange(args, 1, args.length);
 
         ArrayList<String> slicedFinal = new ArrayList<>();
@@ -26,7 +21,7 @@ public class ignoreArgument {
     }
 
     public void ignoreFiles(ArrayList<String> files) {
-        general gen = new general();
+        General gen = new General();
         for (String s: files) {
             gen.writeInfile(".jGit/.jGitignore", s);
         }

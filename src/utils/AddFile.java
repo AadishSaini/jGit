@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class addFile {
-    public addFile(String[] completeInstructionSet){
+public class AddFile {
+    public AddFile(String[] completeInstructionSet){
         String[] sliced = Arrays.copyOfRange(completeInstructionSet, 1, completeInstructionSet.length);
 
         ArrayList<String> slicedFinal = new ArrayList<>();
@@ -21,7 +21,7 @@ public class addFile {
     }
 
     public void addFiles(ArrayList<String> sliced){
-        general gen=new general();
+        General gen=new General();
         for (String s : sliced) {
             gen.writeInfile(".jGit/.addedFiles", s);
         }

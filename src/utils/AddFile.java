@@ -24,6 +24,13 @@ public class AddFile {
         General gen=new General();
         for (String s : sliced) {
             gen.writeInfile(".jGit/.addedFiles", s);
+            createSha1(s);
         }
+    }
+
+    public void createSha1(String fileName) {
+        ToSHA1 toSHA1 = new ToSHA1();
+        String hashValue = ToSHA1.SHA1(fileName);
+        System.out.println(hashValue);
     }
 }

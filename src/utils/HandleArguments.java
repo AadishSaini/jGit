@@ -13,7 +13,7 @@ public class HandleArguments {
                 break;
             case "init":
                 gen.createDir(".jGit");
-                gen.createInitFiles(".jGit");
+                gen.createInitFilesAndFolders(".jGit");
                 break;
             case "add":
                 AddFile addFile = new AddFile(args);

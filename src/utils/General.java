@@ -36,7 +36,8 @@ public class General {
             System.out.println("An error occurred or file already exists: " + e.getMessage());
         }
     }
-    public void createInitFiles(String path) {
+    public void createInitFilesAndFolders(String path) {
+        createDir(".jGit/objects");
         createFile(".jGit/.jGitignore");
         createFile(".jGit/.addedFiles");
         createFile(".jGit/.branchInfo");

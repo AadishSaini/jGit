@@ -23,7 +23,7 @@ public class IgnoreArgument {
     public void ignoreFiles(ArrayList<String> files) {
         General gen = new General();
         for (String s: files) {
-            gen.writeInfile(".jGit/.jGitignore", s);
+            gen.writeInfileAppend(".jGit/.jGitignore", s);
         }
     }
 }

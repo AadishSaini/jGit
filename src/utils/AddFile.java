@@ -24,7 +24,9 @@ public class AddFile {
         General gen=new General();
         String fileContent;
         for (String s : sliced) {
-            gen.writeInfile(".jGit/.addedFiles", s);
+            if (isFileAlreadyAdded(s)){
+                continue;
+            }
 
             fileContent = gen.readInfile(s);
             System.out.println("AddFile called and read the content of file "+ s+ "!: \""+fileContent+"\"");
@@ -39,10 +41,12 @@ public class AddFile {
             gen.createFile(
                     blobDirectory
             );
-            gen.writeInfile(
+            gen.writeInfileAppend(
                     blobDirectory,
                     "blob " + Integer.toString(fileContent.length())+"\0"+fileContent
             );
+
+            gen.writeInfileAppend(".jGit/.addedFiles", s+" "+hashValue);
         }
     }
 
@@ -50,5 +54,12 @@ public class AddFile {
         return ToSHA1.SHA1(
                 "blob " + Integer.toString(fileContent.length())+"\0"+fileContent
         );
+    }
+
+    public boolean isFileAlreadyAdded(String fileName) {
+        General gen = new General();
+        String addedFiles = gen.readInfile(".jGit/.addedFiles");
+
+        return addedFiles.contains(fileName);
     }
 }

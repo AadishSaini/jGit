@@ -23,6 +23,9 @@ public class HandleArguments {
             case "ignore":
                 IgnoreArgument ignoreArgument = new IgnoreArgument(args);
                 break;
+            case "tree":
+                TreeCreation tree = new TreeCreation();
+                break;
         }
     }
 }

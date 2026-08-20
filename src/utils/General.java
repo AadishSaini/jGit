@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 public class General {
 
@@ -42,7 +43,7 @@ public class General {
         createFile(".jGit/.branchInfo");
     }
 
-    public void writeInfile(String path, String content) {
+    public void writeInfileAppend(String path, String content) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(path, true))) {
             writer.write(content);
             writer.newLine();
@@ -63,4 +64,15 @@ public class General {
         }
         return content;
     }
+
+    public static String[] readFileLinesToList(String path) {
+        String[] linesFinal = new String[0];
+        try (Stream<String> lines = Files.lines(Paths.get(path))) {
+            linesFinal = lines.toArray(String[]::new);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return linesFinal;
+    }
+
 }

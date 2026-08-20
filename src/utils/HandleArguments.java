@@ -3,7 +3,9 @@ package utils;
 public class HandleArguments {
     public void switchCase(String caseName, String[] args) {
         General gen = new General();
-
+        for (String arg : args) {
+            System.out.println(arg);
+        }
         switch (caseName) {
             case "--h":
                 System.out.println("You asked for help!");

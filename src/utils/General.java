@@ -1,8 +1,7 @@
 package utils;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -50,5 +49,18 @@ public class General {
         } catch (IOException e) {
             System.err.println("An error occurred: " + e.getMessage());
         }
+    }
+
+    public String readInfile(String path) {
+        String content = "";
+        try (BufferedReader reader = Files.newBufferedReader(Path.of(path), StandardCharsets.UTF_8)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content += line;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return content;
     }
 }

@@ -5,11 +5,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class ToSHA1 {
-    public static String SHA1(String str) {
+    public static String SHA1(String contentToConvert) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
 
-            byte[] messageDigest = md.digest(str.getBytes());
+            byte[] messageDigest = md.digest(contentToConvert.getBytes());
 
             BigInteger no = new BigInteger(1, messageDigest);
 

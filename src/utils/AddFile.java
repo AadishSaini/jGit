@@ -22,15 +22,33 @@ public class AddFile {
 
     public void addFiles(ArrayList<String> sliced){
         General gen=new General();
+        String fileContent;
         for (String s : sliced) {
             gen.writeInfile(".jGit/.addedFiles", s);
-            createSha1(s);
+
+            fileContent = gen.readInfile(s);
+            System.out.println("AddFile called and read the content of file "+ s+ "!: \""+fileContent+"\"");
+
+            String hashValue = createSha1(fileContent);
+            System.out.println("Created the hash for the file "+ s+ "!: \""+hashValue+"\"");
+
+            gen.createDir(".jGit/objects/"+hashValue.substring(0, 2));
+            String blobDirectory = ".jGit/objects/" +
+                    hashValue.substring(0, 2) +
+                    "/" + hashValue.substring(2);
+            gen.createFile(
+                    blobDirectory
+            );
+            gen.writeInfile(
+                    blobDirectory,
+                    "blob " + Integer.toString(fileContent.length())+"\0"+fileContent
+            );
         }
     }
 
-    public void createSha1(String fileName) {
-        ToSHA1 toSHA1 = new ToSHA1();
-        String hashValue = ToSHA1.SHA1(fileName);
-        System.out.println(hashValue);
+    public String createSha1(String fileContent) {
+        return ToSHA1.SHA1(
+                "blob " + Integer.toString(fileContent.length())+"\0"+fileContent
+        );
     }
 }

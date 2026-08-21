@@ -94,5 +94,6 @@ public class TreeCreation {
 
         System.out.println();
         printTree(root);
+
     }
 }

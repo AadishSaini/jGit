@@ -1,28 +1,11 @@
 package utils;
 
-import com.sun.source.tree.Tree;
+
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class TreeCreation {
-    public TreeNode recursiveCallToTreeChildren(TreeNode curr, String[] nameHash){
-        if (curr.children == null) {
-            TreeNode dir = new TreeNode(nameHash[0], " ", false);
-            curr.children.put(nameHash[0], dir);
-            return dir;
-        }
-        for (TreeNode child : curr.children.values()) {
-            recursiveCallToTreeChildren(child, nameHash);
-        }
-        return new TreeNode("", "", false);
-    }
-
-    public void printTree(TreeNode root){
-        System.out.println(root.name);
-        for (TreeNode child : root.children.values()) {
-            printTree(child);
-        }
-    }
-
-    public TreeCreation() {
+    public String[] getFiles() {
         General gen = new General();
 
         String[] lines = gen.readFileLinesToList(".jGit/.addedFiles");
@@ -30,33 +13,86 @@ public class TreeCreation {
 
         int i = 0;
         for (String line : lines) {
-            files[i] = line.split(" ")[0];
+            files[i] = line;
             i++;
         }
 
-        i = files.length;
-        for(String file: files){
-            System.out.println(file);
+        return files;
+    }
+
+
+    public void printTree(TreeNode node) {
+        printTree(node, "", true);
+    }
+
+    private void printTree(TreeNode node, String prefix, boolean isLast) {
+        String type = node.isFile ? "FILE" : "DIR";
+
+        System.out.println(
+                prefix +
+                        (isLast ? "└── " : "├── ") +
+                        node.name +
+                        " [" + type + "]" +
+                        " hash=" + node.hash
+        );
+
+        int size = node.children.size();
+        int i = 0;
+
+        for (TreeNode child : node.children.values()) {
+            i++;
+
+            String childPrefix =
+                    prefix + (isLast ? "    " : "│   ");
+
+            printTree(child, childPrefix, i == size);
         }
-        TreeNode root = new TreeNode(".", "", false);
-
-        for (String line : lines) {
-            String[] test = line.split("/");
-            for(String currIter: test){
-                String[] nameHash = currIter.split(" ");
-                if (nameHash.length > 1) {
-                    TreeNode fileNode = new TreeNode(nameHash[0], nameHash[1], true);
-                    // appending the node in the tree
+    }
 
 
+    public TreeCreation() {
+        String[] files = getFiles();
+        System.out.print("[");
+        for (String file : files) {
+            System.out.print(file+", ");
+        }
+        System.out.print("]");
+
+
+
+
+        TreeNode root = new TreeNode("ROOT", "", false);
+        TreeNode curr = root;
+
+        for (String file : files) {
+            String[] folderOrFiles = file.split("/");
+            for (int i = 1; i <= folderOrFiles.length; i++) {
+                String folderOrFile = folderOrFiles[i-1];
+                // the file/folder already exists
+                if (curr.children.containsKey(folderOrFile)) {
+                    curr = curr.children.get(folderOrFile);
                 }
-
-                // dirs
-                recursiveCallToTreeChildren(root, nameHash);
-                printTree(root);
-
-
+                // the file/folder does not exist
+                else {
+                    // the given "folderOrFiles" is the file (isFile = True)
+                    if (i == folderOrFiles.length) {
+                        String[] nameAndHash = folderOrFile.split(" ");
+                        TreeNode newFileNode = new TreeNode(nameAndHash[0], nameAndHash[1], true);
+                        curr.children.put(folderOrFile, newFileNode);
+                        break;
+                    }
+                    // the given "folderOrFile" is a folder (isFile = False)
+                    else {
+                        TreeNode newDirectoryNode = new TreeNode(folderOrFile, "", false);
+                        curr.children.put(folderOrFile, newDirectoryNode);
+                        curr = curr.children.get(folderOrFile);
+                    }
+                }
             }
+            curr = root;
         }
+
+        System.out.println();
+        printTree(root);
     }
 }
